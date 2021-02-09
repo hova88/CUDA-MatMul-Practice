@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hova/cuda_template/demo.cc
+iostream
+-
+matmul/parser.h
+/home/hova/cuda_template/matmul/parser.h
+
+/home/hova/cuda_template/matmul/parser.h
+iostream
+-
+stdio.h
+-
+
