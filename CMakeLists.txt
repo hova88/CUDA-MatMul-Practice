@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4)
 
 cmake_policy(SET CMP0048 NEW)
 cmake_policy(SET CMP0042 NEW)
-project(matmul) #VERSION 0.1.0 
+project(demo) #VERSION 0.1.0 
 
 
 option(BUILD_SHARED_LIBS "Build as a shared library"  ON)
@@ -66,7 +66,7 @@ set(COMMON_INCLUDES ${CMAKE_CURRENT_BINARY_DIR})
 ############################################################
 set(PROJECT_LIB_NAME ${PROJECT_NAME})
 include_directories(${COMMON_INCLUDES})
-add_subdirectory(${PROJECT_SOURCE_DIR}/matmul)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/matmul)
 
 
 ############################################################

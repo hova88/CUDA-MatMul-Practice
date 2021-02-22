@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "matmul/parser.h" // important to include .cu file, not header file
+#include "src/matmul/parser.h" // important to include .cu file, not header file
 
 int main() {
 

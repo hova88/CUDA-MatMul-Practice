@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES -O3 -DNDEBUG  -shared -Wl,-soname,libgmock.so -o ../../../lib/libgmock.so CMakeFiles/gmock.dir/src/gmock-all.cc.o  -Wl,-rpath,/home/hova/cuda_template/build/lib: ../../../lib/libgtest.so -lpthread 
