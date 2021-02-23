@@ -40,8 +40,9 @@ cmake .. && make -j6
 ```
 
 # Reference
-[1] cuda-cmake-gtest-gbench-starter. at: https://github.com/PhDP/cuda-cmake-gtest-gbench-starter
-[2] Matrix Multiplication CUDA. at: https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html#8
+[1] cuda-cmake-gtest-gbench-starter. at: https://github.com/PhDP/cuda-cmake-gtest-gbench-starter.
+
+[2] Matrix Multiplication CUDA. at: https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html#8.
 ## License
 
 MIT © Richard McRichface
