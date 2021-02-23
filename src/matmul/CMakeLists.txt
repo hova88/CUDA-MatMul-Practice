@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 #file(GLOB_RECURSE SRC *)
 file(GLOB SRC *.cc *.cu)
 cuda_add_library(${PROJECT_LIB_NAME} ${SRC})
-target_link_libraries(${PROJECT_LIB_NAME} ${CUDA_cusparse_LIBRARY} OpenMP::OpenMP_CXX)
+target_link_libraries(${PROJECT_LIB_NAME} ${LINK_LIBRARY})
 
 # Export the package for use from the build tree
 # export(TARGETS ${PROJECT_NAME} NAMESPACE XComp:: FILE cmake/${PROJECT_NAME}Targets.cmake)

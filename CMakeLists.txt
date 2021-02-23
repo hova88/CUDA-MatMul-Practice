@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4)
 
 cmake_policy(SET CMP0048 NEW)
 cmake_policy(SET CMP0042 NEW)
-project(demo) #VERSION 0.1.0 
+project(template) #VERSION 0.1.0 
 
 
 option(BUILD_SHARED_LIBS "Build as a shared library"  ON)
@@ -26,18 +26,18 @@ endif ()
 # find_package(catkin REQUIRED COMPONENTS rosbag roscpp sensor_msgs)
 # include_directories(${catkin_INCLUDE_DIRS})
 
-find_package(Boost REQUIRED COMPONENTS program_options filesystem)
-include_directories(${Boost_INCLUDE_DIRS})
+# find_package(Boost REQUIRED COMPONENTS program_options filesystem)
+# include_directories(${Boost_INCLUDE_DIRS})
 
-find_package(Eigen3 REQUIRED)
-include_directories(${Eigen_INCLUDE_DIRS})
+# find_package(Eigen3 REQUIRED)
+# include_directories(${Eigen_INCLUDE_DIRS})
 
-find_package(yaml-cpp REQUIRED)
-include_directories(${YAML_CPP_INCLUDE_DIRS})
+# find_package(yaml-cpp REQUIRED)
+# include_directories(${YAML_CPP_INCLUDE_DIRS})
 
-find_package(Threads)
-find_package(OpenMP REQUIRED)
-add_definitions("-DELPP_NO_LOG_TO_FILE")
+# find_package(Threads)
+# find_package(OpenMP REQUIRED)
+# add_definitions("-DELPP_NO_LOG_TO_FILE")
 
 find_package(CUDA REQUIRED QUIET)
 if (CUDA_VERSION VERSION_LESS "11.0")
