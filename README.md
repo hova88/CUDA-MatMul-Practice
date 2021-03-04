@@ -19,7 +19,7 @@ cmake .. && make -j6
 ```
 
 ## Result
-
+![](./doc/jpgs/matmul.jpg)
 ```bash
 [==========] Running 14 tests from 2 test cases.
 [----------] Global test environment set-up.
@@ -35,7 +35,9 @@ cmake .. && make -j6
 [ RUN      ] MatrixMult.__Unroll__
 [       OK ] MatrixMult.__Unroll__ (0 ms)
 [----------] 5 tests from MatrixMult (75 ms total)
-
+```
+![](./doc/jpgs/reduction.jpg)
+```bash
 [----------] 9 tests from REDUCTION
 [ RUN      ] REDUCTION.__Inter_Div__
 [       OK ] REDUCTION.__Inter_Div__ (1 ms)
