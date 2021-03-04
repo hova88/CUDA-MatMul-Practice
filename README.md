@@ -21,11 +21,11 @@ cmake .. && make -j6
 ## Result
 
 ```bash
-[==========] Running 5 tests from 1 test case.
+[==========] Running 14 tests from 2 test cases.
 [----------] Global test environment set-up.
 [----------] 5 tests from MatrixMult
 [ RUN      ] MatrixMult.__Naive__
-[       OK ] MatrixMult.__Naive__ (117 ms)
+[       OK ] MatrixMult.__Naive__ (75 ms)
 [ RUN      ] MatrixMult.__Tiling__
 [       OK ] MatrixMult.__Tiling__ (0 ms)
 [ RUN      ] MatrixMult.__Coalescing__
@@ -34,11 +34,32 @@ cmake .. && make -j6
 [       OK ] MatrixMult.__Computation_Omp__ (0 ms)
 [ RUN      ] MatrixMult.__Unroll__
 [       OK ] MatrixMult.__Unroll__ (0 ms)
-[----------] 5 tests from MatrixMult (117 ms total)
+[----------] 5 tests from MatrixMult (75 ms total)
+
+[----------] 9 tests from REDUCTION
+[ RUN      ] REDUCTION.__Inter_Div__
+[       OK ] REDUCTION.__Inter_Div__ (1 ms)
+[ RUN      ] REDUCTION.__Inter_Bank__
+[       OK ] REDUCTION.__Inter_Bank__ (0 ms)
+[ RUN      ] REDUCTION.__Seque_Naive__
+[       OK ] REDUCTION.__Seque_Naive__ (1 ms)
+[ RUN      ] REDUCTION.__Seque_Halve__
+[       OK ] REDUCTION.__Seque_Halve__ (0 ms)
+[ RUN      ] REDUCTION.__Seque_Unroll__
+[       OK ] REDUCTION.__Seque_Unroll__ (0 ms)
+[ RUN      ] REDUCTION.__Complete_Unroll__
+[       OK ] REDUCTION.__Complete_Unroll__ (0 ms)
+[ RUN      ] REDUCTION.__Multiple_thread__
+[       OK ] REDUCTION.__Multiple_thread__ (0 ms)
+[ RUN      ] REDUCTION.__TOTAL_SUM__
+[       OK ] REDUCTION.__TOTAL_SUM__ (0 ms)
+[ RUN      ] REDUCTION.__Points_Mean__
+[       OK ] REDUCTION.__Points_Mean__ (4 ms)
+[----------] 9 tests from REDUCTION (6 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (117 ms total)
-[  PASSED  ] 5 tests.
+[==========] 14 tests from 2 test cases ran. (81 ms total)
+[  PASSED  ] 14 tests.
 ```
 
 # Reference
@@ -47,6 +68,9 @@ at: https://github.com/PhDP/cuda-cmake-gtest-gbench-starter.
 
 [2] Matrix Multiplication CUDA. 
 at: https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html#8.
+
+[3] Optimizing Parallel Reduction in CUDA - Nvidia
+at: https://developer.download.nvidia.com/assets/cuda/files/reduction.pdf
 ## License
 
 MIT © Richard McRichface
