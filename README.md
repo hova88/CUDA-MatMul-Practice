@@ -1,5 +1,5 @@
 # cuda-template
-![](./doc/jpgs/cover.jpgs)
+![](./doc/jpgs/cover.jpg)
 The repo mainly provides a basic template related to the application of CUDA in C++ project with `CMakeLists.txt`. 
 and takes the realization of matrix multiplication in various ways as an example.
 
