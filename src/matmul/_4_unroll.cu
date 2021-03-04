@@ -18,7 +18,7 @@ The "computation-to-memory ratio" of the outer product is the same as the inner 
  */
 
  #include <stdio.h>
- #include "parser.h"
+ #include "../parser.h"
 
  ////////////////////////////////////////////////////////////////////////////////
  //! Matrix multiplication on the device: C = A * B
@@ -56,7 +56,7 @@ The "computation-to-memory ratio" of the outer product is the same as the inner 
     C[threadIdx.x * blockDim.y + threadIdx.y] = cv[threadIdx.x * blockDim.y + threadIdx.y];
  }
  
- matrix parser::unroll( matrix& C) {
+void parser::matmul_unroll( matrix& C) {
 	float* dev_a;
 	cudaMalloc(&dev_a, A.row * A.col * sizeof(float));
 	cudaMemcpy(dev_a, A.elements,  A.row * A.col * sizeof(float), cudaMemcpyHostToDevice);
@@ -81,5 +81,5 @@ The "computation-to-memory ratio" of the outer product is the same as the inner 
     cudaFree(dev_a);
     cudaFree(dev_b);
     cudaFree(dev_c);
-    return C;
+    return;
 }

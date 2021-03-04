@@ -64,17 +64,23 @@ set(COMMON_INCLUDES ${CMAKE_CURRENT_BINARY_DIR})
 ############################################################
 # Create a library in subdirectory
 ############################################################
-set(PROJECT_LIB_NAME ${PROJECT_NAME})
+set(MATMUL_LIB_NAME matmul)
 include_directories(${COMMON_INCLUDES})
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/matmul)
 
+set(REDUCTION_LIB_NAME reduction)
+include_directories(${COMMON_INCLUDES})
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/reduction)
 
 ############################################################
 # Create an executable
 ############################################################
 add_executable(${PROJECT_NAME}-demo demo.cc ${COMMON_INCLUDES})
 
-target_link_libraries(${PROJECT_NAME}-demo ${LINK_LIBRARY} ${PROJECT_LIB_NAME})
+target_link_libraries(${PROJECT_NAME}-demo 
+                      ${LINK_LIBRARY} 
+                      ${MATMUL_LIB_NAME}
+                      ${REDUCTION_LIB_NAME})
 
 
 if (TEST)

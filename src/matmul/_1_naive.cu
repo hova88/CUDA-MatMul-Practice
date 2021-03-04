@@ -1,6 +1,6 @@
-#include "parser.h"
-#include <stdio.h>
 
+ #include <stdio.h>
+ #include "../parser.h"
 
 __global__ void
 naive_kernel( float* C, float* A, float* B, int interDim)
@@ -21,7 +21,7 @@ naive_kernel( float* C, float* A, float* B, int interDim)
   C[threadIdx.x * blockDim.y + threadIdx.y ] = element;
 }
 
-matrix parser::naive( matrix& C) {
+void parser::matmul_naive( matrix& C) {
 	float* dev_a;
 	cudaMalloc(&dev_a, A.row * A.col * sizeof(float));
 	cudaMemcpy(dev_a, A.elements,  A.row * A.col * sizeof(float), cudaMemcpyHostToDevice);
@@ -46,5 +46,5 @@ matrix parser::naive( matrix& C) {
     cudaFree(dev_a);
     cudaFree(dev_b);
     cudaFree(dev_c);
-    return C;
+    return;
 }

@@ -8,29 +8,29 @@
  */
 
  #include <stdio.h>
- #include "parser.h"
+ #include "../parser.h"
 
  ////////////////////////////////////////////////////////////////////////////////
  //! Matrix multiplication on the device: C = A * B
  //! wA is A's width and wB is B's width
  ////////////////////////////////////////////////////////////////////////////////
  __global__ void
- coalescing_kernel( float* C, float* A, float* B,  int interDim)
+ tiling_kernel( float* C, float* A, float* B,  int interDim)
  {
 
      // Declaration of the shared memory array As used to
      // store the sub-matrix of A
-    __shared__ float As[6*2];
+    __shared__ float As[2 * 6];
  
      // Declaration of the shared memory array Bs used to
      // store the sub-matrix of B
-    __shared__ float Bs[8*2];
+    __shared__ float Bs[2 * 8];
  
     // Index of the first sub-matrix of A&B processed by the block
     int A_head = threadIdx.x * interDim; // {0,1,2}  *   4
     int B_head = threadIdx.y ; // {0,1,2,3}
     // Index of the last sub-matrix of A processed by the block
-    int A_tail = A_head + interDim -1 ;  // width of As = 4
+    int A_tail = A_head + 4 -1 ;  // width of As = 2
     // Step size used to iterate through the sub-matrices of A&B
     int A_step = 2;
     int B_step = 2 * interDim ; 
@@ -50,14 +50,8 @@
         As[0 + a] = A[a];
         As[1 + a]  = A[a + 1];    
 
-        int b_coalesce ; //其实就是求一个转置
-        if( b %2 != 0) {
-            b_coalesce = b + interDim - 1;
-        }else {
-            b_coalesce = b;
-        }
-        Bs[0 + b_coalesce] = B[b];
-        Bs[1 + b_coalesce] = B[b + 1 * interDim];
+        Bs[0 + b] = B[b];
+        Bs[1 * interDim + b] = B[b + 1 * interDim];
         __syncthreads();
 
         // if (threadIdx.x == 0 && threadIdx.y == 1) {
@@ -68,7 +62,7 @@
         // each thread computes one element
         // of the block sub-matrix
         // for (int k = 0; k < 12; ++k)
-            Csub += As[0 + a]*Bs[0 + b_coalesce] + As[1 + a] * Bs[1 + b_coalesce] ;
+            Csub += As[0 + a]*Bs[0 + b] + As[1 + a] * Bs[1 * interDim + b] ;
          // Synchronize to make sure that the preceding
          // computation is done before loading two new
          // sub-matrices of A and B in the next iteration
@@ -80,12 +74,11 @@
      C[threadIdx.x * blockDim.y + threadIdx.y ] = Csub;
  }
  
- matrix parser::coalescing( matrix& C) {
+void parser::matmul_tiling( matrix& C) {
 	float* dev_a;
 	cudaMalloc(&dev_a, A.row * A.col * sizeof(float));
 	cudaMemcpy(dev_a, A.elements,  A.row * A.col * sizeof(float), cudaMemcpyHostToDevice);
     
-
     float* dev_b;
     cudaMalloc(&dev_b, B.row * B.col * sizeof(float));
     cudaMemcpy(dev_b, B.elements,  B.row * B.col * sizeof(float), cudaMemcpyHostToDevice);
@@ -96,7 +89,7 @@
 
     dim3 block_size(3,4);
     // dim3 grid_size(1);
-    coalescing_kernel<<< 1 , block_size , 2 * sizeof(float)>>>(dev_c, dev_a, dev_b , 4);
+    tiling_kernel<<< 1 , block_size , 2 * sizeof(float)>>>(dev_c, dev_a, dev_b , 4);
 
     cudaDeviceSynchronize();
 
@@ -106,5 +99,5 @@
     cudaFree(dev_a);
     cudaFree(dev_b);
     cudaFree(dev_c);
-    return C;
+    return;
 }

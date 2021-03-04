@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "src/matmul/parser.h" // important to include .cu file, not header file
+#include "src/parser.h" 
 
 int main() {
 
@@ -16,8 +16,9 @@ int main() {
     matrix A(3,4,ele_a);
     matrix B(4,4,ele_b);
     parser test_parser(A, B);
-    matrix C(3,4);
-    test_parser.naive(C);
-    
+    matrix C(3,1);
+    test_parser.reduce_interdiv(C);
+    // test_parser.matmul_naive(C);
+    std::cout << C.elements[0] << std::endl;
 	return 1;
 }

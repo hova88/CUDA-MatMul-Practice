@@ -1,6 +1,6 @@
 #include <iostream>
 #include "gtest/gtest.h"
-#include "../src/matmul/parser.h"
+#include "../src/parser.h"
 
 
 TEST(MatrixMult, __Naive__) {
@@ -22,7 +22,7 @@ TEST(MatrixMult, __Naive__) {
   matrix B(4,4,ele_b);
   parser test_parser(A, B);
   matrix C(3,4);
-  test_parser.naive(C);
+  test_parser.matmul_naive(C);
 
   EXPECT_FLOAT_EQ(ele_c[0], C.elements[0]);
   EXPECT_FLOAT_EQ(ele_c[1], C.elements[1]);
@@ -58,7 +58,7 @@ TEST(MatrixMult, __Tiling__) {
   parser test_parser(A, B);
   matrix C(3,4);
 
-  test_parser.tiling(C);
+  test_parser.matmul_tiling(C);
 
   EXPECT_FLOAT_EQ(ele_c[0], C.elements[0]);
   EXPECT_FLOAT_EQ(ele_c[1], C.elements[1]);
@@ -94,7 +94,7 @@ TEST(MatrixMult, __Coalescing__) {
   parser test_parser(A, B);
   matrix C(3,4);
 
-  test_parser.coalescing(C);
+  test_parser.matmul_coalescing(C);
 
   EXPECT_FLOAT_EQ(ele_c[0], C.elements[0]);
   EXPECT_FLOAT_EQ(ele_c[1], C.elements[1]);
@@ -130,7 +130,7 @@ TEST(MatrixMult, __Computation_Omp__) {
   parser test_parser(A, B);
   matrix C(3,4);
 
-  test_parser.comopt(C);
+  test_parser.matmul_comopt(C);
 
   EXPECT_FLOAT_EQ(ele_c[0], C.elements[0]);
   EXPECT_FLOAT_EQ(ele_c[1], C.elements[1]);
@@ -166,7 +166,7 @@ TEST(MatrixMult, __Unroll__) {
   matrix B(4,4,ele_b);
   parser test_parser(A, B);
   matrix C(3,4);
-  test_parser.unroll(C);
+  test_parser.matmul_unroll(C);
 
   EXPECT_FLOAT_EQ(ele_c[0], C.elements[0]);
   EXPECT_FLOAT_EQ(ele_c[1], C.elements[1]);

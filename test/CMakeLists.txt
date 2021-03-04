@@ -5,20 +5,20 @@ include_directories(./gtest/googletest/include)
 set(test_src
   run_all.cc
   matrix_mult_test.cc
+  reduction_test.cc
 )
 
-add_executable(test_matmul ${test_src})
+add_executable(test_all ${test_src})
 
-target_link_libraries(test_matmul
+target_link_libraries(test_all
   gtest
   ${LINK_LIBRARY} 
-  ${PROJECT_LIB_NAME}
-  # ${DG_LIB_NAME}
-  # ${CMAKE_THREAD_LIBS_INIT}
-  # ${MATH_LIBS}
+  ${MATMUL_LIB_NAME}
+  ${REDUCTION_LIB_NAME}
 )
+
 
 add_test(
   NAME tests
-  COMMAND test_matmul
+  COMMAND test_all
 )
