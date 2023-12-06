@@ -20,9 +20,9 @@ add_compile_options("$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CUDA>>:-G;-src-i
 
 # Configure header file search paths
 include_directories(${CUDA_INCLUDE_DIRS})
-include_directories(${PROJECT_SOURCE_DIR}/src)
+# include_directories(${PROJECT_SOURCE_DIR}/src)
 # Configure the source file path to be compiled
-aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC)
+# aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC)
 
 # generate executable
 add_executable(matmul matmul.cu ${SRC})
