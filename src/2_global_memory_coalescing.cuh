@@ -8,10 +8,10 @@
  * A is MxK, B is KxN, C is MxN
  */
 template <const uint BLOCKSIZE>
-__global__ void matmul_naive(const float* A, const float* B, float* C, 
-                             int M, int N, int K, float alpha, float beta) {
-  int row = blockIdx.x * BLOCKSIZE + (threadIdx.x % BLOCKSIZE); // conitguous in memory
-  int col = blockIdx.y * BLOCKSIZE + (threadIdx.x / BLOCKSIZE);
+__global__ void matmul_global_mem_coalesce(const float* A, const float* B, float* C, 
+                                           int M, int N, int K, float alpha, float beta) {
+  int row = blockIdx.x * BLOCKSIZE + (threadIdx.x / BLOCKSIZE);
+  int col = blockIdx.y * BLOCKSIZE + (threadIdx.x % BLOCKSIZE); // conitguous in memory
   if (row >= M || col >= N) {return;}
 
   float sum = 0.0f;
@@ -23,12 +23,11 @@ __global__ void matmul_naive(const float* A, const float* B, float* C,
 }
 
 
-void matmul_naive_launcher(const float* A, const float* B, float* C, 
+void matmul_global_mem_coalesce_launcher(const float* A, const float* B, float* C, 
                            int M, int N, int K, float alpha, float beta) {
 
   dim3 gridDim((M + 31) / 32, (N + 31) / 32);
   dim3 blockDim(32 * 32);
 
-  matmul_naive<32><<< gridDim, blockDim>>>(A, B, C, M, N, K, alpha, beta);
+  matmul_global_mem_coalesce<32><<<gridDim, blockDim>>>(A, B, C, M, N, K, alpha, beta);
 }
-

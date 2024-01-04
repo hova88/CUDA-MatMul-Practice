@@ -3,7 +3,6 @@
 #include <cuda_runtime.h>
 
 /* 
- * Implements a naive matrix multiplication kernel.
  * C = alpha * A * B + beta * C
  * A is MxK, B is KxN, C is MxN
  */
@@ -19,8 +18,8 @@ __global__ void matmul_shared_mem_block(const float* A, const float* B, float* C
   __shared__ float Bs[BLOCKSIZE * BLOCKSIZE];
 
   // the thread's row and column indices of the current block
-  int thread_row = threadIdx.x % BLOCKSIZE; // threads_row contiguous within a warp, but our memory useage for it is not contiguous. 
-  int thread_col = threadIdx.x / BLOCKSIZE;  
+  int thread_row = threadIdx.x / BLOCKSIZE; // threads_row contiguous within a warp, but our memory useage for it is not contiguous. 
+  int thread_col = threadIdx.x % BLOCKSIZE;  
   if (row * BLOCKSIZE + thread_row >= M || col * BLOCKSIZE + thread_col >= N) {return;}
 
   // advance pointers to the starting position
